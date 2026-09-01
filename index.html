@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JLPT N5-N2 备考闯关打卡计划表</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #e0e7ff;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --badge-n5n4: #3b82f6;
+            --badge-n3: #8b5cf6;
+            --badge-n2: #ec4899;
+            --badge-sprint: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding-bottom: 60px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+            color: white;
+            padding: 36px 20px 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge-jlpt {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .header-stats {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 16px 20px;
+            border-radius: 12px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-val {
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .stat-sub {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.65);
+            margin-top: 2px;
+        }
+
+        /* Progress Bar */
+        .progress-wrapper {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            height: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #34d399);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1200px;
+            margin: -20px auto 0;
+            padding: 0 16px;
+        }
+
+        /* Controls / Filter Bar */
+        .controls-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 16px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stage-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            border: none;
+            background: #f1f5f9;
+            color: #475569;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+        }
+
+        .filter-tools {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 8px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+            width: 180px;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-action {
+            padding: 8px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: white;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        /* Timeline / Cards Grid */
+        .timeline-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .day-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            overflow: hidden;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .day-card:hover {
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+        }
+
+        .day-card.completed {
+            border-color: #a7f3d0;
+            background: #fafdfb;
+        }
+
+        .day-header {
+            padding: 12px 18px;
+            background: #f8fafc;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .day-card.completed .day-header {
+            background: #f0fdf4;
+            border-bottom-color: #dcfce7;
+        }
+
+        .day-date-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .day-num {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stage-pill {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 6px;
+            color: white;
+        }
+
+        .stage-n5n4 { background-color: var(--badge-n5n4); }
+        .stage-n3 { background-color: var(--badge-n3); }
+        .stage-n2 { background-color: var(--badge-n2); }
+        .stage-sprint { background-color: var(--badge-sprint); }
+
+        .day-complete-check {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .day-content {
+            padding: 14px 18px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #f1f5f9;
+            cursor: pointer;
+            transition: all 0.15s;
+            user-select: none;
+        }
+
+        .task-item:hover {
+            background: #f1f5f9;
+        }
+
+        .task-item.checked {
+            background: #f0fdf4;
+            border-color: #dcfce7;
+        }
+
+        .task-item.checked .task-text {
+            color: #94a3b8;
+            text-decoration: line-through;
+        }
+
+        .custom-checkbox {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #cbd5e1;
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            margin-top: 2px;
+            flex-shrink: 0;
+            transition: all 0.15s;
+        }
+
+        .custom-checkbox:checked {
+            background-color: var(--success);
+            border-color: var(--success);
+        }
+
+        .custom-checkbox:checked::after {
+            content: "✓";
+            color: white;
+            position: absolute;
+            font-size: 12px;
+            font-weight: 700;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .task-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .task-cat {
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+
+        .task-text {
+            font-size: 13px;
+            color: var(--text-main);
+            word-break: break-word;
+            white-space: pre-line;
+        }
+
+        /* Quick Today Scroll Float */
+        .float-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 20px;
+            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 100;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .float-btn:hover {
+            transform: translateY(-2px);
+            background: var(--primary-hover);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .modal-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .day-content {
+                grid-template-columns: 1fr;
+            }
+            .controls-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="header-title">
+                <h1>
+                    <span>🇯🇵 JLPT N5 → N2 备考闯关打卡</span>
+                    <span class="badge-jlpt">2026.09 - 2027.07</span>
+                </h1>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.85);">
+                    📅 今日日期: <strong id="current-today-str">--</strong>
+                </div>
+            </div>
+
+            <div class="header-stats">
+                <div class="stat-card">
+                    <div class="stat-label">总计划天数</div>
+                    <div class="stat-val" id="total-days-val">306 天</div>
+                    <div class="stat-sub">4 大备考阶段全覆盖</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">已完成任务数</div>
+                    <div class="stat-val" id="completed-tasks-val">0 / 0</div>
+                    <div class="stat-sub">总打卡进度: <span id="progress-percent">0%</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">阶段概览</div>
+                    <div class="stat-val" style="font-size: 16px; margin-top: 8px;">
+                        N5N4 (82d) · N3 (61d) · N2 (57d) · 冲刺 (106d)
+                    </div>
+                    <div class="stat-sub">支持本地自动持久化保存</div>
+                </div>
+            </div>
+
+            <div class="progress-wrapper">
+                <div class="progress-fill" id="progress-bar-fill"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="controls-card">
+            <div class="stage-tabs">
+                <button class="tab-btn active" onclick="switchStage('ALL')">全部阶段 (306)</button>
+                <button class="tab-btn" onclick="switchStage('N5-N4基础阶段')">N5-N4 基础 (82)</button>
+                <button class="tab-btn" onclick="switchStage('N3强化阶段')">N3 强化 (61)</button>
+                <button class="tab-btn" onclick="switchStage('N2进阶阶段')">N2 进阶 (57)</button>
+                <button class="tab-btn" onclick="switchStage('N2考前冲刺阶段')">考前冲刺 (106)</button>
+            </div>
+
+            <div class="filter-tools">
+                <input type="text" id="search-input" class="search-input" placeholder="🔍 搜索日期或学习内容..." oninput="handleSearch()">
+                <button class="btn-action" onclick="exportData()">💾 导出记录</button>
+                <label class="btn-action" style="cursor: pointer;">
+                    📂 导入进度
+                    <input type="file" id="import-file" style="display:none;" onchange="importData(event)">
+                </label>
+                <button class="btn-action" style="color: #ef4444;" onclick="confirmReset()">🔄 重置打卡</button>
+            </div>
+        </div>
+
+        <div class="timeline-grid" id="timeline-container">
+            <!-- Dynamic Days Rendered Here -->
+        </div>
+
+        <div id="empty-state" class="empty-state" style="display: none;">
+            <h3>没有找到符合条件的任务</h3>
+            <p style="margin-top: 6px;">请尝试切换分类或搜索其他关键词</p>
+        </div>
+    </main>
+
+    <button class="float-btn" onclick="scrollToCurrentOrNearest()">
+        🎯 定位今天 / 最近待办
+    </button>
+
+    <script>
+        // Data injected from Python processing
+        const ALL_DATA = {"n5n4": [{"date": "2026-09-02", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第1-2课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "练习N5听力 50天听力"}, {"category": "阅读", "content": "基础阅读每日一篇+跟读"}]}, {"date": "2026-09-03", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第3-4课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "练习N5听力 50天听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-04", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第5课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "练习N5听力 50天听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-05", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第6课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "练习N5听力 50天听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-06", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第7课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "练习N5听力 50天听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-07", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第8课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "练习N5听力 50天听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-08", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第9课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "练习N5听力 50天听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-09", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第10课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "练习N5听力 50天听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-10", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第11课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "练习N5听力 50天听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-11", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第12课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "练习N5听力 50天听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-12", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第13课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "练习N5听力 50天听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-13", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第14课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "练习N5听力 50天听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-14", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第15课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "练习N5听力 50天听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-15", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第16课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-16", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第17课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-17", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第18课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-18", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第19课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-19", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第20课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-20", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第21课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-21", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第22课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-22", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第23课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-23", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第24课教程学习（记笔记，掌握语法）读背单词做练习"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-24", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第25课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-25", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-26", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第20课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-27", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-28", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第21课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-29", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-09-30", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第22课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-01", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-02", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第23课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-03", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-04", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第24课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-05", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-06", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第25课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-07", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-08", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第26课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-09", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-10", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第27课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-11", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-12", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第28课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-13", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-14", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第29课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-15", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-16", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第30课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-17", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-18", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第31课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-19", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-20", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第32课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-21", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-22", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第33课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-23", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-24", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第34课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-25", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-26", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第35课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-27", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-28", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第36课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-29", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-30", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第37课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-10-31", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-01", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第38课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-02", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-03", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第39课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-04", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-05", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第40课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-06", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-07", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第41课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-08", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-09", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第42课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-10", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-11", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第43课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-12", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-13", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第44课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-14", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-15", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第45课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-16", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-17", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第46课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-18", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-19", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第47课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-20", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-21", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "新标日第48课教程学习（记笔记，掌握语法）"}, {"category": "听力", "content": "读单词+练习听力"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-22", "stage": "N5-N4基础阶段", "tasks": [{"category": "课程/语法", "content": "读背单词做练习"}, {"category": "听力", "content": "读课文+听力练习"}, {"category": "阅读", "content": ""}]}], "n3": [{"date": "2026-11-23", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书1"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N4听力听写每天20分钟"}, {"category": "阅读", "content": "基阅读每日一篇+跟读"}]}, {"date": "2026-11-24", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N4听力听写每天20分钟"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-25", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N4听力听写每天20分钟"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-26", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书2"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N4听力听写每天20分钟"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-27", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N4听力听写每天20分钟"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-28", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N4听力听写每天20分钟"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-29", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书3"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N4听力听写每天20分钟"}, {"category": "阅读", "content": ""}]}, {"date": "2026-11-30", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N4听力听写每天20分钟"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-01", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N4听力听写每天20分钟"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-02", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书4"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N4听力听写每天20分钟"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-03", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N4听力听写每天20分钟"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-04", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N4听力听写每天20分钟"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-05", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书5"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N4听力听写每天20分钟"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-06", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N4听力听写每天20分钟"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-07", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N4听力听写每天20分钟"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-08", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书6"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-09", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-10", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-11", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书7"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-12", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-13", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-14", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书8"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-15", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-16", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-17", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书9"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-18", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-19", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-20", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书10"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-21", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-22", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-23", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书11"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-24", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-25", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-26", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书12"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-27", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-28", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-29", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书13"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-30", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2026-12-31", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-01", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书14"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-02", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-03", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-04", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书15"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-05", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-06", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-07", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书16"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-08", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-09", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-10", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书17"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-11", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-12", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-13", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书18"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-14", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-15", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-16", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书19"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-17", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-18", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-19", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": "N3蓝宝书20"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-20", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "2027-01-21", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N3真题听力练习"}, {"category": "阅读", "content": ""}]}, {"date": "接下来7-10天刷N3真题", "stage": "N3强化阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": ""}, {"category": "听力", "content": ""}, {"category": "阅读", "content": ""}]}], "n2": [{"date": "2027-01-22", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书1"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": "基阅读每日一篇+跟读"}, {"category": "备注", "content": "过年期间休假时间学习任务延后"}]}, {"date": "2027-01-23", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-01-24", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-01-25", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书2"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-01-26", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-01-27", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-01-28", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书3"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-01-29", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-01-30", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-01-31", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书4"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-01", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-02", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-03", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书5"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-04", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-05", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-06", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书6"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-07", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-08", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-09", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书7"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-10", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-11", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-12", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书8"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-13", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-14", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-15", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书9"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-16", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-17", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-18", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书10"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-19", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-20", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-21", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书11"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-22", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-23", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-24", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书12"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-25", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-26", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-27", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书13"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-02-28", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-01", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-02", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书14"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-03", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-04", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-05", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书15"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-06", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-07", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-08", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书16"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-09", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-10", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-11", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书17"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-12", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-13", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-14", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书18"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-15", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-16", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-17", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": "N2蓝宝书19"}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-18", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}, {"date": "2027-03-19", "stage": "N2进阶阶段", "tasks": [{"category": "语法", "content": ""}, {"category": "单词", "content": "N2绿宝书\n一天30个单词"}, {"category": "听力", "content": "N2听力听写每天30分钟"}, {"category": "阅读", "content": ""}, {"category": "备注", "content": ""}]}], "sprint": [{"date": "2027-03-20", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题1听力技巧+问题1做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-03-21", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题1听力技巧+问题1做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-03-22", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题1听力技巧+问题1做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-03-23", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题1听力技巧+问题1做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-03-24", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题1听力技巧+问题1做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-03-25", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题1听力技巧+问题1做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-03-26", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题1听力技巧+问题1做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-03-27", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题2听力技巧+问题2做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-03-28", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题2听力技巧+问题2做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-03-29", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题2听力技巧+问题2做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-03-30", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题2听力技巧+问题2做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-03-31", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题2听力技巧+问题2做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-01", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题2听力技巧+问题2做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-02", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题2听力技巧+问题2做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-03", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题3听力技巧+问题3做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-04", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题3听力技巧+问题3做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-05", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题3听力技巧+问题3做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-06", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题3听力技巧+问题3做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-07", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题3听力技巧+问题3做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-08", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "核心词汇800词背诵"}, {"category": "听力练习", "content": "N2问题3听力技巧+问题3做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-09", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "N2问题3听力技巧+问题3做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-10", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "N2问题4听力技巧+问题4做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-11", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "N2问题4听力技巧+问题4做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-12", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "N2问题4听力技巧+问题4做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-13", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "N2问题4听力技巧+问题4做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-14", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "N2问题4听力技巧+问题4做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-15", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "N2问题4听力技巧+问题4做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-16", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "N2问题4听力技巧+问题4做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-17", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "N2问题5听力技巧+问题5做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-18", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "N2问题5听力技巧+问题5做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-19", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "N2问题5听力技巧+问题5做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-20", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "N2问题5听力技巧+问题5做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-21", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "N2问题5听力技巧+问题5做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-22", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "N2问题5听力技巧+问题5做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-23", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "N2问题5听力技巧+问题5做题练习"}, {"category": "阅读练习", "content": "阅读技巧课+阅读练习每天1-3篇"}]}, {"date": "2027-04-24", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": "两天一套阅读"}]}, {"date": "2027-04-25", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": "后面以此类推"}]}, {"date": "2027-04-26", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-04-27", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-04-28", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-04-29", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "一刷真题词汇语法并复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-04-30", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "复盘"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-01", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-02", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-03", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "重点副词背诵"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-04", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-05", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-06", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-07", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-08", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-09", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-10", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-11", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-12", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-13", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-14", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-15", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-16", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-17", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-18", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-19", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-20", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-21", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-22", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-23", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-24", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-25", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-26", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-27", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-28", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-29", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-30", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-05-31", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-01", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-02", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-03", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-04", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-05", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-06", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-07", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-08", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-09", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-10", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-11", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-12", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-13", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-14", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-15", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-16", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-17", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-18", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-19", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-20", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-21", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-22", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-23", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-24", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-25", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-26", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-27", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-28", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-29", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-06-30", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-07-01", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-07-02", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}, {"date": "2027-07-03", "stage": "N2考前冲刺阶段", "tasks": [{"category": "词汇语法刷题", "content": "日语N2真题语法150条+二刷蓝宝书"}, {"category": "单词背诵", "content": "听力高频词，真题词汇等"}, {"category": "听力练习", "content": "三天一套真题听力并复盘"}, {"category": "阅读练习", "content": ""}]}]};
+
+        // Flatten data
+        const PLAN_LIST = [
+            ...ALL_DATA.n5n4,
+            ...ALL_DATA.n3,
+            ...ALL_DATA.n2,
+            ...ALL_DATA.sprint
+        ];
+
+        const STORAGE_KEY = 'jlpt_study_plan_checked_tasks_v1';
+        let checkedTasks = new Set();
+        let currentFilter = 'ALL';
+        let searchQuery = '';
+
+        // Load storage
+        function loadStorage() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) {
+                    const arr = JSON.parse(raw);
+                    checkedTasks = new Set(arr);
+                }
+            } catch (e) {
+                console.error("Failed to load localStorage", e);
+            }
+        }
+
+        function saveStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(checkedTasks)));
+            } catch (e) {
+                console.error("Failed to save localStorage", e);
+            }
+        }
+
+        function getTaskId(date, cat, index) {
+            return `${date}_${cat}_${index}`;
+        }
+
+        function getStageClass(stage) {
+            if (stage.includes('N5-N4')) return 'stage-n5n4';
+            if (stage.includes('N3')) return 'stage-n3';
+            if (stage.includes('N2进阶')) return 'stage-n2';
+            return 'stage-sprint';
+        }
+
+        function render() {
+            const container = document.getElementById('timeline-container');
+            const emptyEl = document.getElementById('empty-state');
+            container.innerHTML = '';
+
+            let totalValidTasks = 0;
+            let totalCheckedCount = 0;
+
+            // Count total tasks across entire plan
+            PLAN_LIST.forEach(day => {
+                day.tasks.forEach((t, idx) => {
+                    if (t.content) {
+                        totalValidTasks++;
+                        const tid = getTaskId(day.date, t.category, idx);
+                        if (checkedTasks.has(tid)) {
+                            totalCheckedCount++;
+                        }
+                    }
+                });
+            });
+
+            // Update Progress Header
+            const pct = totalValidTasks > 0 ? Math.round((totalCheckedCount / totalValidTasks) * 100) : 0;
+            document.getElementById('completed-tasks-val').innerText = `${totalCheckedCount} / ${totalValidTasks}`;
+            document.getElementById('progress-percent').innerText = `${pct}%`;
+            document.getElementById('progress-bar-fill').style.width = `${pct}%`;
+            document.getElementById('total-days-val').innerText = `${PLAN_LIST.length} 天`;
+
+            // Filter
+            const filtered = PLAN_LIST.filter(day => {
+                if (currentFilter !== 'ALL' && day.stage !== currentFilter) return false;
+                if (searchQuery) {
+                    const q = searchQuery.toLowerCase();
+                    const matchDate = day.date.toLowerCase().includes(q);
+                    const matchTasks = day.tasks.some(t => t.content.toLowerCase().includes(q) || t.category.toLowerCase().includes(q));
+                    if (!matchDate && !matchTasks) return false;
+                }
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                emptyEl.style.display = 'block';
+                return;
+            } else {
+                emptyEl.style.display = 'none';
+            }
+
+            const todayStr = new Date().toISOString().split('T')[0];
+            document.getElementById('current-today-str').innerText = todayStr;
+
+            filtered.forEach((day, dayIdx) => {
+                const dayCard = document.createElement('div');
+                dayCard.className = 'day-card';
+                dayCard.id = `day-${day.date}`;
+
+                const validTasks = day.tasks.filter(t => t.content && t.content.trim() !== '');
+                const dayChecked = validTasks.length > 0 && validTasks.every((t, i) => {
+                    const originalIdx = day.tasks.indexOf(t);
+                    return checkedTasks.has(getTaskId(day.date, t.category, originalIdx));
+                });
+
+                if (dayChecked) {
+                    dayCard.classList.add('completed');
+                }
+
+                // Header
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'day-header';
+                dayHeader.innerHTML = `
+                    <div class="day-date-group">
+                        <span class="day-num">📅 ${day.date}</span>
+                        <span class="stage-pill ${getStageClass(day.stage)}">${day.stage}</span>
+                    </div>
+                    <label class="day-complete-check" onclick="toggleWholeDay('${day.date}', event)">
+                        <input type="checkbox" class="custom-checkbox" ${dayChecked ? 'checked' : ''}>
+                        <span>${dayChecked ? '已完成全天' : '标记全天'}</span>
+                    </label>
+                `;
+
+                // Content Tasks
+                const dayContent = document.createElement('div');
+                dayContent.className = 'day-content';
+
+                validTasks.forEach(task => {
+                    const originalIdx = day.tasks.indexOf(task);
+                    const tid = getTaskId(day.date, task.category, originalIdx);
+                    const isChecked = checkedTasks.has(tid);
+
+                    const taskItem = document.createElement('div');
+                    taskItem.className = `task-item ${isChecked ? 'checked' : ''}`;
+                    taskItem.onclick = (e) => {
+                        if (e.target.tagName !== 'INPUT') {
+                            toggleTask(tid);
+                        }
+                    };
+
+                    taskItem.innerHTML = `
+                        <input type="checkbox" class="custom-checkbox" ${isChecked ? 'checked' : ''} onchange="toggleTask('${tid}')">
+                        <div class="task-info">
+                            <span class="task-cat">${task.category}</span>
+                            <span class="task-text">${escapeHtml(task.content)}</span>
+                        </div>
+                    `;
+                    dayContent.appendChild(taskItem);
+                });
+
+                dayCard.appendChild(dayHeader);
+                dayCard.appendChild(dayContent);
+                container.appendChild(dayCard);
+            });
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+
+        function toggleTask(tid) {
+            if (checkedTasks.has(tid)) {
+                checkedTasks.delete(tid);
+            } else {
+                checkedTasks.add(tid);
+            }
+            saveStorage();
+            render();
+        }
+
+        function toggleWholeDay(date, event) {
+            event.stopPropagation();
+            event.preventDefault();
+            const day = PLAN_LIST.find(d => d.date === date);
+            if (!day) return;
+
+            const validTasks = day.tasks.filter(t => t.content && t.content.trim() !== '');
+            const allChecked = validTasks.every((t) => {
+                const originalIdx = day.tasks.indexOf(t);
+                return checkedTasks.has(getTaskId(day.date, t.category, originalIdx));
+            });
+
+            validTasks.forEach((t) => {
+                const originalIdx = day.tasks.indexOf(t);
+                const tid = getTaskId(day.date, t.category, originalIdx);
+                if (allChecked) {
+                    checkedTasks.delete(tid);
+                } else {
+                    checkedTasks.add(tid);
+                }
+            });
+
+            saveStorage();
+            render();
+        }
+
+        function switchStage(stage) {
+            currentFilter = stage;
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if (btn.innerText.includes(stage) || (stage === 'ALL' && btn.innerText.includes('全部'))) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            render();
+        }
+
+        function handleSearch() {
+            searchQuery = document.getElementById('search-input').value.trim();
+            render();
+        }
+
+        function scrollToCurrentOrNearest() {
+            const todayStr = new Date().toISOString().split('T')[0];
+            let targetEl = document.getElementById(`day-${todayStr}`);
+            
+            if (!targetEl) {
+                // Find first unfinished day or nearest upcoming day
+                const firstUnfinished = PLAN_LIST.find(day => {
+                    const validTasks = day.tasks.filter(t => t.content && t.content.trim() !== '');
+                    return !validTasks.every((t) => {
+                        const originalIdx = day.tasks.indexOf(t);
+                        return checkedTasks.has(getTaskId(day.date, t.category, originalIdx));
+                    });
+                });
+                if (firstUnfinished) {
+                    targetEl = document.getElementById(`day-${firstUnfinished.date}`);
+                }
+            }
+
+            if (targetEl) {
+                targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                targetEl.style.transition = 'box-shadow 0.3s';
+                targetEl.style.boxShadow = '0 0 0 3px #4f46e5';
+                setTimeout(() => {
+                    targetEl.style.boxShadow = '';
+                }, 2000);
+            } else {
+                alert('已全部完成或未在当前筛选列表中找到目标日期！');
+            }
+        }
+
+        function exportData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(Array.from(checkedTasks)));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `jlpt_study_backup_${new Date().toISOString().split('T')[0]}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (Array.isArray(imported)) {
+                        checkedTasks = new Set(imported);
+                        saveStorage();
+                        render();
+                        alert('进度导入成功！');
+                    } else {
+                        alert('文件格式不正确！');
+                    }
+                } catch (err) {
+                    alert('导入失败：' + err.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function confirmReset() {
+            if (confirm('确定要清空所有的打卡记录吗？此操作不可逆！')) {
+                checkedTasks.clear();
+                saveStorage();
+                render();
+            }
+        }
+
+        // Init
+        loadStorage();
+        render();
+    </script>
+</body>
+</html>
