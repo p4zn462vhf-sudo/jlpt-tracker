@@ -21,51 +21,35 @@
             --badge-n2: #ec4899;
             --badge-sprint: #f59e0b;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--bg-main);
             color: var(--text-main);
             line-height: 1.5;
-            padding-bottom: 60px;
+            padding-bottom: 70px;
         }
-
-        /* Header */
         header {
             background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
             color: white;
-            padding: 36px 20px 30px;
+            padding: 30px 20px 24px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
+        .header-container { max-width: 1200px; margin: 0 auto; }
         .header-title {
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 12px;
         }
-
         h1 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
-            letter-spacing: -0.5px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .badge-jlpt {
             background: rgba(255, 255, 255, 0.2);
             padding: 4px 10px;
@@ -73,132 +57,75 @@
             font-size: 13px;
             font-weight: 600;
         }
-
         .header-stats {
-            margin-top: 24px;
+            margin-top: 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
         }
-
         .stat-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 16px 20px;
+            padding: 14px 18px;
             border-radius: 12px;
         }
-
-        .stat-label {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.8);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .stat-val {
-            font-size: 24px;
-            font-weight: 700;
-            margin-top: 4px;
-        }
-
-        .stat-sub {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.65);
-            margin-top: 2px;
-        }
-
-        /* Progress Bar */
+        .stat-label { font-size: 12px; color: rgba(255, 255, 255, 0.8); text-transform: uppercase; }
+        .stat-val { font-size: 22px; font-weight: 700; margin-top: 4px; }
+        .stat-sub { font-size: 11px; color: rgba(255, 255, 255, 0.65); margin-top: 2px; }
         .progress-wrapper {
-            margin-top: 20px;
+            margin-top: 18px;
             background: rgba(255, 255, 255, 0.15);
             border-radius: 10px;
-            height: 12px;
+            height: 10px;
             overflow: hidden;
-            position: relative;
         }
-
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #10b981, #34d399);
             width: 0%;
-            transition: width 0.4s ease;
+            transition: width 0.3s ease;
         }
-
-        /* Main Container */
-        main {
-            max-width: 1200px;
-            margin: -20px auto 0;
-            padding: 0 16px;
-        }
-
-        /* Controls / Filter Bar */
+        main { max-width: 1200px; margin: -16px auto 0; padding: 0 16px; }
         .controls-card {
             background: var(--bg-card);
             border-radius: 14px;
-            padding: 16px 20px;
+            padding: 14px 18px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             border: 1px solid var(--border);
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
-            margin-bottom: 24px;
+            gap: 14px;
+            margin-bottom: 20px;
         }
-
-        .stage-tabs {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
+        .stage-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
         .tab-btn {
             border: none;
             background: #f1f5f9;
             color: #475569;
-            padding: 8px 16px;
+            padding: 7px 14px;
             border-radius: 8px;
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
         }
-
-        .tab-btn:hover {
-            background: #e2e8f0;
-            color: #0f172a;
-        }
-
-        .tab-btn.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
-        }
-
-        .filter-tools {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
+        .tab-btn:hover { background: #e2e8f0; color: #0f172a; }
+        .tab-btn.active { background: var(--primary); color: white; }
+        .filter-tools { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
         .search-input {
-            padding: 8px 14px;
+            padding: 7px 12px;
             border: 1px solid var(--border);
             border-radius: 8px;
             font-size: 13px;
             outline: none;
-            width: 180px;
-            transition: border-color 0.2s;
+            width: 160px;
         }
-
-        .search-input:focus {
-            border-color: var(--primary);
-        }
-
+        .search-input:focus { border-color: var(--primary); }
         .btn-action {
-            padding: 8px 14px;
+            padding: 7px 12px;
             border: 1px solid var(--border);
             border-radius: 8px;
             background: white;
@@ -208,83 +135,36 @@
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            transition: all 0.2s;
+            gap: 4px;
         }
-
-        .btn-action:hover {
-            background: #f8fafc;
-            border-color: #cbd5e1;
-        }
-
-        /* Timeline / Cards Grid */
-        .timeline-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
+        .btn-action:hover { background: #f8fafc; border-color: #cbd5e1; }
+        .timeline-grid { display: flex; flex-direction: column; gap: 14px; }
         .day-card {
             background: var(--bg-card);
             border-radius: 12px;
             border: 1px solid var(--border);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
             overflow: hidden;
             transition: transform 0.15s, box-shadow 0.15s;
         }
-
-        .day-card:hover {
-            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-        }
-
-        .day-card.completed {
-            border-color: #a7f3d0;
-            background: #fafdfb;
-        }
-
+        .day-card.completed { border-color: #a7f3d0; background: #fafdfb; }
         .day-header {
-            padding: 12px 18px;
+            padding: 12px 16px;
             background: #f8fafc;
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
+            gap: 10px;
         }
-
-        .day-card.completed .day-header {
-            background: #f0fdf4;
-            border-bottom-color: #dcfce7;
-        }
-
-        .day-date-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .day-num {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .stage-pill {
-            font-size: 11px;
-            font-weight: 600;
-            padding: 2px 8px;
-            border-radius: 6px;
-            color: white;
-        }
-
+        .day-card.completed .day-header { background: #f0fdf4; border-bottom-color: #dcfce7; }
+        .day-date-group { display: flex; align-items: center; gap: 10px; }
+        .day-num { font-size: 14px; font-weight: 700; color: var(--text-main); }
+        .stage-pill { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 5px; color: white; }
         .stage-n5n4 { background-color: var(--badge-n5n4); }
         .stage-n3 { background-color: var(--badge-n3); }
         .stage-n2 { background-color: var(--badge-n2); }
         .stage-sprint { background-color: var(--badge-sprint); }
-
         .day-complete-check {
             display: flex;
             align-items: center;
@@ -294,19 +174,17 @@
             color: var(--text-muted);
             cursor: pointer;
         }
-
         .day-content {
-            padding: 14px 18px;
+            padding: 12px 16px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
         }
-
         .task-item {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            padding: 10px 12px;
+            gap: 8px;
+            padding: 9px 11px;
             background: #f8fafc;
             border-radius: 8px;
             border: 1px solid #f1f5f9;
@@ -314,25 +192,13 @@
             transition: all 0.15s;
             user-select: none;
         }
-
-        .task-item:hover {
-            background: #f1f5f9;
-        }
-
-        .task-item.checked {
-            background: #f0fdf4;
-            border-color: #dcfce7;
-        }
-
-        .task-item.checked .task-text {
-            color: #94a3b8;
-            text-decoration: line-through;
-        }
-
+        .task-item:hover { background: #f1f5f9; }
+        .task-item.checked { background: #f0fdf4; border-color: #dcfce7; }
+        .task-item.checked .task-text { color: #94a3b8; text-decoration: line-through; }
         .custom-checkbox {
             appearance: none;
-            width: 18px;
-            height: 18px;
+            width: 17px;
+            height: 17px;
             border: 2px solid #cbd5e1;
             border-radius: 4px;
             outline: none;
@@ -340,50 +206,22 @@
             position: relative;
             margin-top: 2px;
             flex-shrink: 0;
-            transition: all 0.15s;
         }
-
-        .custom-checkbox:checked {
-            background-color: var(--success);
-            border-color: var(--success);
-        }
-
+        .custom-checkbox:checked { background-color: var(--success); border-color: var(--success); }
         .custom-checkbox:checked::after {
             content: "✓";
             color: white;
             position: absolute;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
-
-        .task-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .task-cat {
-            font-size: 11px;
-            font-weight: 700;
-            color: #64748b;
-            text-transform: uppercase;
-        }
-
-        .task-text {
-            font-size: 13px;
-            color: var(--text-main);
-            word-break: break-word;
-            white-space: pre-line;
-        }
-
-        /* Note Section */
-        .day-note-wrapper {
-            padding: 0 18px 14px;
-        }
-
+        .task-info { display: flex; flex-direction: column; gap: 2px; }
+        .task-cat { font-size: 11px; font-weight: 700; color: #64748b; }
+        .task-text { font-size: 13px; color: var(--text-main); word-break: break-word; white-space: pre-line; }
+        .day-note-wrapper { padding: 0 16px 12px; }
         .note-toggle-btn {
             background: none;
             border: none;
@@ -394,28 +232,16 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            padding: 4px 0;
-            margin-bottom: 6px;
+            padding: 3px 0;
+            margin-bottom: 4px;
         }
-
-        .note-toggle-btn:hover {
-            color: #4338ca;
-            text-decoration: underline;
-        }
-
-        .note-box {
-            display: none;
-            margin-top: 4px;
-        }
-
-        .note-box.open {
-            display: block;
-        }
-
+        .note-toggle-btn:hover { color: #4338ca; text-decoration: underline; }
+        .note-box { display: none; margin-top: 4px; }
+        .note-box.open { display: block; }
         .note-textarea {
             width: 100%;
-            min-height: 64px;
-            padding: 8px 12px;
+            min-height: 60px;
+            padding: 8px 10px;
             font-size: 13px;
             color: #1e293b;
             background-color: #f8fafc;
@@ -424,72 +250,38 @@
             outline: none;
             resize: vertical;
             box-sizing: border-box;
-            transition: border-color 0.2s, background-color 0.2s;
             font-family: inherit;
         }
-
         .note-textarea:focus {
             background-color: #ffffff;
             border-color: #6366f1;
             box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
         }
-
-        .note-status {
-            font-size: 11px;
-            color: #94a3b8;
-            margin-top: 3px;
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        /* Quick Today Scroll Float */
+        .note-status { font-size: 11px; color: #94a3b8; margin-top: 2px; text-align: right; }
         .float-btn {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
+            bottom: 20px;
+            right: 20px;
             background: var(--primary);
             color: white;
             border: none;
             border-radius: 30px;
-            padding: 12px 20px;
+            padding: 10px 18px;
             box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
             font-weight: 700;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
             z-index: 100;
-            transition: transform 0.2s, background 0.2s;
         }
-
-        .float-btn:hover {
-            transform: translateY(-2px);
-            background: var(--primary-hover);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-muted);
-        }
-
+        .empty-state { text-align: center; padding: 50px 20px; color: var(--text-muted); }
         @media (max-width: 768px) {
-            .day-content {
-                grid-template-columns: 1fr;
-            }
-            .controls-card {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .search-input {
-                width: 100%;
-            }
+            .day-content { grid-template-columns: 1fr; }
+            .controls-card { flex-direction: column; align-items: stretch; }
+            .search-input { width: 100%; }
         }
     </style>
 </head>
 <body>
-
     <header>
         <div class="header-container">
             <div class="header-title">
@@ -501,7 +293,6 @@
                     📅 今日日期: <strong id="current-today-str">--</strong>
                 </div>
             </div>
-
             <div class="header-stats">
                 <div class="stat-card">
                     <div class="stat-label">总计划天数</div>
@@ -515,13 +306,12 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">阶段概览</div>
-                    <div class="stat-val" style="font-size: 16px; margin-top: 8px;">
-                        N5N4 (82d) · N3 (61d) · N2 (57d) · 冲刺 (106d)
+                    <div class="stat-val" style="font-size: 15px; margin-top: 6px;">
+                        N5N4(82d) · N3(61d) · N2(57d) · 冲刺(106d)
                     </div>
-                    <div class="stat-sub">支持本地自动持久化保存</div>
+                    <div class="stat-sub">本地自动持久化保存</div>
                 </div>
             </div>
-
             <div class="progress-wrapper">
                 <div class="progress-fill" id="progress-bar-fill"></div>
             </div>
@@ -532,38 +322,42 @@
         <div class="controls-card">
             <div class="stage-tabs">
                 <button class="tab-btn active" onclick="switchStage('ALL')">全部阶段 (306)</button>
-                <button class="tab-btn" onclick="switchStage('N5-N4基础阶段')">N5-N4 基础 (82)</button>
-                <button class="tab-btn" onclick="switchStage('N3强化阶段')">N3 强化 (61)</button>
-                <button class="tab-btn" onclick="switchStage('N2进阶阶段')">N2 进阶 (57)</button>
-                <button class="tab-btn" onclick="switchStage('N2考前冲刺阶段')">考前冲刺 (106)</button>
+                <button class="tab-btn" onclick="switchStage('N5-N4基础阶段')">N5-N4 (82)</button>
+                <button class="tab-btn" onclick="switchStage('N3强化阶段')">N3 (61)</button>
+                <button class="tab-btn" onclick="switchStage('N2进阶阶段')">N2 (57)</button>
+                <button class="tab-btn" onclick="switchStage('N2考前冲刺阶段')">冲刺 (106)</button>
             </div>
-
             <div class="filter-tools">
-                <input type="text" id="search-input" class="search-input" placeholder="🔍 搜索日期或学习内容..." oninput="handleSearch()">
-                <button class="btn-action" onclick="exportData()">💾 导出记录</button>
+                <input type="text" id="search-input" class="search-input" placeholder="🔍 搜索日期或内容..." oninput="handleSearch()">
+                <button class="btn-action" onclick="exportData()">💾 导出备份</button>
                 <label class="btn-action" style="cursor: pointer;">
                     📂 导入进度
                     <input type="file" id="import-file" style="display:none;" onchange="importData(event)">
                 </label>
-                <button class="btn-action" style="color: #ef4444;" onclick="confirmReset()">🔄 重置打卡</button>
+                <button class="btn-action" style="color: #ef4444;" onclick="confirmReset()">🔄 重置</button>
             </div>
         </div>
 
-        <div class="timeline-grid" id="timeline-container">
-            <!-- Dynamic Days Rendered Here -->
-        </div>
-
+        <div class="timeline-grid" id="timeline-container"></div>
         <div id="empty-state" class="empty-state" style="display: none;">
             <h3>没有找到符合条件的任务</h3>
-            <p style="margin-top: 6px;">请尝试切换分类或搜索其他关键词</p>
         </div>
     </main>
 
-    <button class="float-btn" onclick="scrollToCurrentOrNearest()">
-        🎯 定位今天 / 最近待办
-    </button>
+    <button class="float-btn" onclick="scrollToCurrentOrNearest()">🎯 定位今天 / 待办</button>
 
     <script>
+        const RAW_PACKED = {"s":["N5-N4基础阶段","N3强化阶段","N2进阶阶段","N2考前冲刺阶段"],"c":["课程/语法","听力","阅读","语法","单词","备注","词汇语法刷题","单词背诵","听力练习","阅读练习"],"v":["新标日第1-2课教程学习（记笔记，掌握语法）读背单词做练习","练习N5听力 50天听力","基础阅读每日一篇+跟读","新标日第3-4课教程学习（记笔记，掌握语法）读背单词做练习","新标日第5课教程学习（记笔记，掌握语法）读背单词做练习","新标日第6课教程学习（记笔记，掌握语法）读背单词做练习","新标日第7课教程学习（记笔记，掌握语法）读背单词做练习","新标日第8课教程学习（记笔记，掌握语法）读背单词做练习","新标日第9课教程学习（记笔记，掌握语法）读背单词做练习","新标日第10课教程学习（记笔记，掌握语法）读背单词做练习","新标日第11课教程学习（记笔记，掌握语法）读背单词做练习","新标日第12课教程学习（记笔记，掌握语法）读背单词做练习","新标日第13课教程学习（记笔记，掌握语法）读背单词做练习","新标日第14课教程学习（记笔记，掌握语法）读背单词做练习","新标日第15课教程学习（记笔记，掌握语法）读背单词做练习","新标日第16课教程学习（记笔记，掌握语法）读背单词做练习","读单词+练习听力","新标日第17课教程学习（记笔记，掌握语法）读背单词做练习","读课文+听力练习","新标日第18课教程学习（记笔记，掌握语法）读背单词做练习","新标日第19课教程学习（记笔记，掌握语法）读背单词做练习","新标日第20课教程学习（记笔记，掌握语法）读背单词做练习","新标日第21课教程学习（记笔记，掌握语法）读背单词做练习","新标日第22课教程学习（记笔记，掌握语法）读背单词做练习","新标日第23课教程学习（记笔记，掌握语法）读背单词做练习","新标日第24课教程学习（记笔记，掌握语法）读背单词做练习","新标日第25课教程学习（记笔记，掌握语法）","读背单词做练习","新标日第26课教程学习（记笔记，掌握语法）","新标日第27课教程学习（记笔记，掌握语法）","新标日第28课教程学习（记笔记，掌握语法）","新标日第29课教程学习（记笔记，掌握语法）","新标日第30课教程学习（记笔记，掌握语法）","新标日第31课教程学习（记笔记，掌握语法）","新标日第32课教程学习（记笔记，掌握语法）","新标日第33课教程学习（记笔记，掌握语法）","新标日第34课教程学习（记笔记，掌握语法）","新标日第35课教程学习（记笔记，掌握语法）","新标日第36课教程学习（记笔记，掌握语法）","新标日第37课教程学习（记笔记，掌握语法）","新标日第38课教程学习（记笔记，掌握语法）","新标日第39课教程学习（记笔记，掌握语法）","新标日第40课教程学习（记笔记，掌握语法）","新标日第41课教程学习（记笔记，掌握语法）","新标日第42课教程学习（记笔记，掌握语法）","新标日第43课教程学习（记笔记，掌握语法）","新标日第44课教程学习（记笔记，掌握语法）","新标日第45课教程学习（记笔记，掌握语法）","新标日第46课教程学习（记笔记，掌握语法）","新标日第47课教程学习（记笔记，掌握语法）","新标日第48课教程学习（记笔记，掌握语法）","N3蓝宝书1","N2绿宝书\n一天30个单词","N4听力听写每天20分钟","基阅读每日一篇+跟读","N3蓝宝书2","N3蓝宝书3","N3蓝宝书4","N3蓝宝书5","N3蓝宝书6","N3真题听力练习","N3蓝宝书7","N3蓝宝书8","N3蓝宝书9","N3蓝宝书10","N3蓝宝书11","N3蓝宝书12","N3蓝宝书13","N3蓝宝书14","N3蓝宝书15","N3蓝宝书16","N3蓝宝书17","N3蓝宝书18","N3蓝宝书19","N3蓝宝书20","N2蓝宝书1","N2听力听写每天30分钟","过年期间休假时间学习任务延后","N2蓝宝书2","N2蓝宝书3","N2蓝宝书4","N2蓝宝书5","N2蓝宝书6","N2蓝宝书7","N2蓝宝书8","N2蓝宝书9","N2蓝宝书10","N2蓝宝书11","N2蓝宝书12","N2蓝宝书13","N2蓝宝书14","N2蓝宝书15","N2蓝宝书16","N2蓝宝书17","N2蓝宝书18","N2蓝宝书19","一刷真题词汇语法并复盘","核心词汇800词背诵","N2问题1听力技巧+问题1做题练习","阅读技巧课+阅读练习每天1-3篇","复盘","N2问题2听力技巧+问题2做题练习","N2问题3听力技巧+问题3做题练习","重点副词背诵","N2问题4听力技巧+问题4做题练习","N2问题5听力技巧+问题5做题练习","三天一套真题听力并复盘","两天一套阅读","后面以此类推","日语N2真题语法150条+二刷蓝宝书","听力高频词，真题词汇等"],"d":[["2026-09-02",0,[[0,0],[1,1],[2,2]]],["2026-09-03",0,[[0,3],[1,1]]],["2026-09-04",0,[[0,4],[1,1]]],["2026-09-05",0,[[0,5],[1,1]]],["2026-09-06",0,[[0,6],[1,1]]],["2026-09-07",0,[[0,7],[1,1]]],["2026-09-08",0,[[0,8],[1,1]]],["2026-09-09",0,[[0,9],[1,1]]],["2026-09-10",0,[[0,10],[1,1]]],["2026-09-11",0,[[0,11],[1,1]]],["2026-09-12",0,[[0,12],[1,1]]],["2026-09-13",0,[[0,13],[1,1]]],["2026-09-14",0,[[0,14],[1,1]]],["2026-09-15",0,[[0,15],[1,16]]],["2026-09-16",0,[[0,17],[1,18]]],["2026-09-17",0,[[0,19],[1,16]]],["2026-09-18",0,[[0,20],[1,18]]],["2026-09-19",0,[[0,21],[1,16]]],["2026-09-20",0,[[0,22],[1,18]]],["2026-09-21",0,[[0,23],[1,16]]],["2026-09-22",0,[[0,24],[1,18]]],["2026-09-23",0,[[0,25],[1,16]]],["2026-09-24",0,[[0,26],[1,16]]],["2026-09-25",0,[[0,27],[1,18]]],["2026-09-26",0,[[0,21],[1,16]]],["2026-09-27",0,[[0,27],[1,18]]],["2026-09-28",0,[[0,22],[1,16]]],["2026-09-29",0,[[0,27],[1,18]]],["2026-09-30",0,[[0,23],[1,16]]],["2026-10-01",0,[[0,27],[1,18]]],["2026-10-02",0,[[0,24],[1,16]]],["2026-10-03",0,[[0,27],[1,18]]],["2026-10-04",0,[[0,25],[1,16]]],["2026-10-05",0,[[0,27],[1,18]]],["2026-10-06",0,[[0,26],[1,16]]],["2026-10-07",0,[[0,27],[1,18]]],["2026-10-08",0,[[0,28],[1,16]]],["2026-10-09",0,[[0,27],[1,18]]],["2026-10-10",0,[[0,29],[1,16]]],["2026-10-11",0,[[0,27],[1,18]]],["2026-10-12",0,[[0,30],[1,16]]],["2026-10-13",0,[[0,27],[1,18]]],["2026-10-14",0,[[0,31],[1,16]]],["2026-10-15",0,[[0,27],[1,18]]],["2026-10-16",0,[[0,32],[1,16]]],["2026-10-17",0,[[0,27],[1,18]]],["2026-10-18",0,[[0,33],[1,16]]],["2026-10-19",0,[[0,27],[1,18]]],["2026-10-20",0,[[0,34],[1,16]]],["2026-10-21",0,[[0,27],[1,18]]],["2026-10-22",0,[[0,35],[1,16]]],["2026-10-23",0,[[0,27],[1,18]]],["2026-10-24",0,[[0,36],[1,16]]],["2026-10-25",0,[[0,27],[1,18]]],["2026-10-26",0,[[0,37],[1,16]]],["2026-10-27",0,[[0,27],[1,18]]],["2026-10-28",0,[[0,38],[1,16]]],["2026-10-29",0,[[0,27],[1,18]]],["2026-10-30",0,[[0,39],[1,16]]],["2026-10-31",0,[[0,27],[1,18]]],["2026-11-01",0,[[0,40],[1,16]]],["2026-11-02",0,[[0,27],[1,18]]],["2026-11-03",0,[[0,41],[1,16]]],["2026-11-04",0,[[0,27],[1,18]]],["2026-11-05",0,[[0,42],[1,16]]],["2026-11-06",0,[[0,27],[1,18]]],["2026-11-07",0,[[0,43],[1,16]]],["2026-11-08",0,[[0,27],[1,18]]],["2026-11-09",0,[[0,44],[1,16]]],["2026-11-10",0,[[0,27],[1,18]]],["2026-11-11",0,[[0,45],[1,16]]],["2026-11-12",0,[[0,27],[1,18]]],["2026-11-13",0,[[0,46],[1,16]]],["2026-11-14",0,[[0,27],[1,18]]],["2026-11-15",0,[[0,47],[1,16]]],["2026-11-16",0,[[0,27],[1,18]]],["2026-11-17",0,[[0,48],[1,16]]],["2026-11-18",0,[[0,27],[1,18]]],["2026-11-19",0,[[0,49],[1,16]]],["2026-11-20",0,[[0,27],[1,18]]],["2026-11-21",0,[[0,50],[1,16]]],["2026-11-22",0,[[0,27],[1,18]]],["2026-11-23",1,[[3,51],[4,52],[1,53],[2,54]]],["2026-11-24",1,[[4,52],[1,53]]],["2026-11-25",1,[[4,52],[1,53]]],["2026-11-26",1,[[3,55],[4,52],[1,53]]],["2026-11-27",1,[[4,52],[1,53]]],["2026-11-28",1,[[4,52],[1,53]]],["2026-11-29",1,[[3,56],[4,52],[1,53]]],["2026-11-30",1,[[4,52],[1,53]]],["2026-12-01",1,[[4,52],[1,53]]],["2026-12-02",1,[[3,57],[4,52],[1,53]]],["2026-12-03",1,[[4,52],[1,53]]],["2026-12-04",1,[[4,52],[1,53]]],["2026-12-05",1,[[3,58],[4,52],[1,53]]],["2026-12-06",1,[[4,52],[1,53]]],["2026-12-07",1,[[4,52],[1,53]]],["2026-12-08",1,[[3,59],[4,52],[1,60]]],["2026-12-09",1,[[4,52],[1,60]]],["2026-12-10",1,[[4,52],[1,60]]],["2026-12-11",1,[[3,61],[4,52],[1,60]]],["2026-12-12",1,[[4,52],[1,60]]],["2026-12-13",1,[[4,52],[1,60]]],["2026-12-14",1,[[3,62],[4,52],[1,60]]],["2026-12-15",1,[[4,52],[1,60]]],["2026-12-16",1,[[4,52],[1,60]]],["2026-12-17",1,[[3,63],[4,52],[1,60]]],["2026-12-18",1,[[4,52],[1,60]]],["2026-12-19",1,[[4,52],[1,60]]],["2026-12-20",1,[[3,64],[4,52],[1,60]]],["2026-12-21",1,[[4,52],[1,60]]],["2026-12-22",1,[[4,52],[1,60]]],["2026-12-23",1,[[3,65],[4,52],[1,60]]],["2026-12-24",1,[[4,52],[1,60]]],["2026-12-25",1,[[4,52],[1,60]]],["2026-12-26",1,[[3,66],[4,52],[1,60]]],["2026-12-27",1,[[4,52],[1,60]]],["2026-12-28",1,[[4,52],[1,60]]],["2026-12-29",1,[[3,67],[4,52],[1,60]]],["2026-12-30",1,[[4,52],[1,60]]],["2026-12-31",1,[[4,52],[1,60]]],["2027-01-01",1,[[3,68],[4,52],[1,60]]],["2027-01-02",1,[[4,52],[1,60]]],["2027-01-03",1,[[4,52],[1,60]]],["2027-01-04",1,[[3,69],[4,52],[1,60]]],["2027-01-05",1,[[4,52],[1,60]]],["2027-01-06",1,[[4,52],[1,60]]],["2027-01-07",1,[[3,70],[4,52],[1,60]]],["2027-01-08",1,[[4,52],[1,60]]],["2027-01-09",1,[[4,52],[1,60]]],["2027-01-10",1,[[3,71],[4,52],[1,60]]],["2027-01-11",1,[[4,52],[1,60]]],["2027-01-12",1,[[4,52],[1,60]]],["2027-01-13",1,[[3,72],[4,52],[1,60]]],["2027-01-14",1,[[4,52],[1,60]]],["2027-01-15",1,[[4,52],[1,60]]],["2027-01-16",1,[[3,73],[4,52],[1,60]]],["2027-01-17",1,[[4,52],[1,60]]],["2027-01-18",1,[[4,52],[1,60]]],["2027-01-19",1,[[3,74],[4,52],[1,60]]],["2027-01-20",1,[[4,52],[1,60]]],["2027-01-21",1,[[4,52],[1,60]]],["2027-01-22",2,[[3,75],[4,52],[1,76],[2,54],[5,77]]],["2027-01-23",2,[[4,52],[1,76]]],["2027-01-24",2,[[4,52],[1,76]]],["2027-01-25",2,[[3,78],[4,52],[1,76]]],["2027-01-26",2,[[4,52],[1,76]]],["2027-01-27",2,[[4,52],[1,76]]],["2027-01-28",2,[[3,79],[4,52],[1,76]]],["2027-01-29",2,[[4,52],[1,76]]],["2027-01-30",2,[[4,52],[1,76]]],["2027-01-31",2,[[3,80],[4,52],[1,76]]],["2027-02-01",2,[[4,52],[1,76]]],["2027-02-02",2,[[4,52],[1,76]]],["2027-02-03",2,[[3,81],[4,52],[1,76]]],["2027-02-04",2,[[4,52],[1,76]]],["2027-02-05",2,[[4,52],[1,76]]],["2027-02-06",2,[[3,82],[4,52],[1,76]]],["2027-02-07",2,[[4,52],[1,76]]],["2027-02-08",2,[[4,52],[1,76]]],["2027-02-09",2,[[3,83],[4,52],[1,76]]],["2027-02-10",2,[[4,52],[1,76]]],["2027-02-11",2,[[4,52],[1,76]]],["2027-02-12",2,[[3,84],[4,52],[1,76]]],["2027-02-13",2,[[4,52],[1,76]]],["2027-02-14",2,[[4,52],[1,76]]],["2027-02-15",2,[[3,85],[4,52],[1,76]]],["2027-02-16",2,[[4,52],[1,76]]],["2027-02-17",2,[[4,52],[1,76]]],["2027-02-18",2,[[3,86],[4,52],[1,76]]],["2027-02-19",2,[[4,52],[1,76]]],["2027-02-20",2,[[4,52],[1,76]]],["2027-02-21",2,[[3,87],[4,52],[1,76]]],["2027-02-22",2,[[4,52],[1,76]]],["2027-02-23",2,[[4,52],[1,76]]],["2027-02-24",2,[[3,88],[4,52],[1,76]]],["2027-02-25",2,[[4,52],[1,76]]],["2027-02-26",2,[[4,52],[1,76]]],["2027-02-27",2,[[3,89],[4,52],[1,76]]],["2027-02-28",2,[[4,52],[1,76]]],["2027-03-01",2,[[4,52],[1,76]]],["2027-03-02",2,[[3,90],[4,52],[1,76]]],["2027-03-03",2,[[4,52],[1,76]]],["2027-03-04",2,[[4,52],[1,76]]],["2027-03-05",2,[[3,91],[4,52],[1,76]]],["2027-03-06",2,[[4,52],[1,76]]],["2027-03-07",2,[[4,52],[1,76]]],["2027-03-08",2,[[3,92],[4,52],[1,76]]],["2027-03-09",2,[[4,52],[1,76]]],["2027-03-10",2,[[4,52],[1,76]]],["2027-03-11",2,[[3,93],[4,52],[1,76]]],["2027-03-12",2,[[4,52],[1,76]]],["2027-03-13",2,[[4,52],[1,76]]],["2027-03-14",2,[[3,94],[4,52],[1,76]]],["2027-03-15",2,[[4,52],[1,76]]],["2027-03-16",2,[[4,52],[1,76]]],["2027-03-17",2,[[3,95],[4,52],[1,76]]],["2027-03-18",2,[[4,52],[1,76]]],["2027-03-19",2,[[4,52],[1,76]]],["2027-03-20",3,[[6,96],[7,97],[8,98],[9,99]]],["2027-03-21",3,[[6,100],[7,97],[8,98],[9,99]]],["2027-03-22",3,[[6,96],[7,97],[8,98],[9,99]]],["2027-03-23",3,[[6,100],[7,97],[8,98],[9,99]]],["2027-03-24",3,[[6,96],[7,97],[8,98],[9,99]]],["2027-03-25",3,[[6,100],[7,97],[8,98],[9,99]]],["2027-03-26",3,[[6,96],[7,97],[8,98],[9,99]]],["2027-03-27",3,[[6,100],[7,97],[8,101],[9,99]]],["2027-03-28",3,[[6,96],[7,97],[8,101],[9,99]]],["2027-03-29",3,[[6,100],[7,97],[8,101],[9,99]]],["2027-03-30",3,[[6,96],[7,97],[8,101],[9,99]]],["2027-03-31",3,[[6,100],[7,97],[8,101],[9,99]]],["2027-04-01",3,[[6,96],[7,97],[8,101],[9,99]]],["2027-04-02",3,[[6,100],[7,97],[8,101],[9,99]]],["2027-04-03",3,[[6,96],[7,97],[8,102],[9,99]]],["2027-04-04",3,[[6,100],[7,97],[8,102],[9,99]]],["2027-04-05",3,[[6,96],[7,97],[8,102],[9,99]]],["2027-04-06",3,[[6,100],[7,97],[8,102],[9,99]]],["2027-04-07",3,[[6,96],[7,97],[8,102],[9,99]]],["2027-04-08",3,[[6,100],[7,97],[8,102],[9,99]]],["2027-04-09",3,[[6,96],[7,103],[8,102],[9,99]]],["2027-04-10",3,[[6,100],[7,103],[8,104],[9,99]]],["2027-04-11",3,[[6,96],[7,103],[8,104],[9,99]]],["2027-04-12",3,[[6,100],[7,103],[8,104],[9,99]]],["2027-04-13",3,[[6,96],[7,103],[8,104],[9,99]]],["2027-04-14",3,[[6,100],[7,103],[8,104],[9,99]]],["2027-04-15",3,[[6,96],[7,103],[8,104],[9,99]]],["2027-04-16",3,[[6,100],[7,103],[8,104],[9,99]]],["2027-04-17",3,[[6,96],[7,103],[8,105],[9,99]]],["2027-04-18",3,[[6,100],[7,103],[8,105],[9,99]]],["2027-04-19",3,[[6,96],[7,103],[8,105],[9,99]]],["2027-04-20",3,[[6,100],[7,103],[8,105],[9,99]]],["2027-04-21",3,[[6,96],[7,103],[8,105],[9,99]]],["2027-04-22",3,[[6,100],[7,103],[8,105],[9,99]]],["2027-04-23",3,[[6,96],[7,103],[8,105],[9,99]]],["2027-04-24",3,[[6,100],[7,103],[8,106],[9,107]]],["2027-04-25",3,[[6,96],[7,103],[8,106],[9,108]]],["2027-04-26",3,[[6,100],[7,103],[8,106]]],["2027-04-27",3,[[6,96],[7,103],[8,106]]],["2027-04-28",3,[[6,100],[7,103],[8,106]]],["2027-04-29",3,[[6,96],[7,103],[8,106]]],["2027-04-30",3,[[6,100],[7,103],[8,106]]],["2027-05-01",3,[[6,109],[7,103],[8,106]]],["2027-05-02",3,[[6,109],[7,103],[8,106]]],["2027-05-03",3,[[6,109],[7,103],[8,106]]],["2027-05-04",3,[[6,109],[7,110],[8,106]]],["2027-05-05",3,[[6,109],[7,110],[8,106]]],["2027-05-06",3,[[6,109],[7,110],[8,106]]],["2027-05-07",3,[[6,109],[7,110],[8,106]]],["2027-05-08",3,[[6,109],[7,110],[8,106]]],["2027-05-09",3,[[6,109],[7,110],[8,106]]],["2027-05-10",3,[[6,109],[7,110],[8,106]]],["2027-05-11",3,[[6,109],[7,110],[8,106]]],["2027-05-12",3,[[6,109],[7,110],[8,106]]],["2027-05-13",3,[[6,109],[7,110],[8,106]]],["2027-05-14",3,[[6,109],[7,110],[8,106]]],["2027-05-15",3,[[6,109],[7,110],[8,106]]],["2027-05-16",3,[[6,109],[7,110],[8,106]]],["2027-05-17",3,[[6,109],[7,110],[8,106]]],["2027-05-18",3,[[6,109],[7,110],[8,106]]],["2027-05-19",3,[[6,109],[7,110],[8,106]]],["2027-05-20",3,[[6,109],[7,110],[8,106]]],["2027-05-21",3,[[6,109],[7,110],[8,106]]],["2027-05-22",3,[[6,109],[7,110],[8,106]]],["2027-05-23",3,[[6,109],[7,110],[8,106]]],["2027-05-24",3,[[6,109],[7,110],[8,106]]],["2027-05-25",3,[[6,109],[7,110],[8,106]]],["2027-05-26",3,[[6,109],[7,110],[8,106]]],["2027-05-27",3,[[6,109],[7,110],[8,106]]],["2027-05-28",3,[[6,109],[7,110],[8,106]]],["2027-05-29",3,[[6,109],[7,110],[8,106]]],["2027-05-30",3,[[6,109],[7,110],[8,106]]],["2027-05-31",3,[[6,109],[7,110],[8,106]]],["2027-06-01",3,[[6,109],[7,110],[8,106]]],["2027-06-02",3,[[6,109],[7,110],[8,106]]],["2027-06-03",3,[[6,109],[7,110],[8,106]]],["2027-06-04",3,[[6,109],[7,110],[8,106]]],["2027-06-05",3,[[6,109],[7,110],[8,106]]],["2027-06-06",3,[[6,109],[7,110],[8,106]]],["2027-06-07",3,[[6,109],[7,110],[8,106]]],["2027-06-08",3,[[6,109],[7,110],[8,106]]],["2027-06-09",3,[[6,109],[7,110],[8,106]]],["2027-06-10",3,[[6,109],[7,110],[8,106]]],["2027-06-11",3,[[6,109],[7,110],[8,106]]],["2027-06-12",3,[[6,109],[7,110],[8,106]]],["2027-06-13",3,[[6,109],[7,110],[8,106]]],["2027-06-14",3,[[6,109],[7,110],[8,106]]],["2027-06-15",3,[[6,109],[7,110],[8,106]]],["2027-06-16",3,[[6,109],[7,110],[8,106]]],["2027-06-17",3,[[6,109],[7,110],[8,106]]],["2027-06-18",3,[[6,109],[7,110],[8,106]]],["2027-06-19",3,[[6,109],[7,110],[8,106]]],["2027-06-20",3,[[6,109],[7,110],[8,106]]],["2027-06-21",3,[[6,109],[7,110],[8,106]]],["2027-06-22",3,[[6,109],[7,110],[8,106]]],["2027-06-23",3,[[6,109],[7,110],[8,106]]],["2027-06-24",3,[[6,109],[7,110],[8,106]]],["2027-06-25",3,[[6,109],[7,110],[8,106]]],["2027-06-26",3,[[6,109],[7,110],[8,106]]],["2027-06-27",3,[[6,109],[7,110],[8,106]]],["2027-06-28",3,[[6,109],[7,110],[8,106]]],["2027-06-29",3,[[6,109],[7,110],[8,106]]],["2027-06-30",3,[[6,109],[7,110],[8,106]]],["2027-07-01",3,[[6,109],[7,110],[8,106]]],["2027-07-02",3,[[6,109],[7,110],[8,106]]],["2027-07-03",3,[[6,109],[7,110],[8,106]]]]};
+
+        const PLAN_LIST = RAW_PACKED.d.map(([dt, sIdx, tList]) => ({
+            date: dt,
+            stage: RAW_PACKED.s[sIdx],
+            tasks: tList.map(([cIdx, vIdx]) => ({
+                category: RAW_PACKED.c[cIdx],
+                content: RAW_PACKED.v[vIdx]
+            }))
+        }));
+
         const STORAGE_KEY = 'jlpt_study_plan_checked_tasks_v1';
         const STORAGE_NOTES_KEY = 'jlpt_study_plan_notes_v1';
         let checkedTasks = new Set();
@@ -583,19 +377,11 @@
         }
 
         function saveStorage() {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(checkedTasks)));
-            } catch (e) {
-                console.error("Failed to save localStorage", e);
-            }
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(checkedTasks))); } catch (e) {}
         }
 
         function saveNotes() {
-            try {
-                localStorage.setItem(STORAGE_NOTES_KEY, JSON.stringify(dayNotes));
-            } catch (e) {
-                console.error("Failed to save notes", e);
-            }
+            try { localStorage.setItem(STORAGE_NOTES_KEY, JSON.stringify(dayNotes)); } catch (e) {}
         }
 
         function handleNoteInput(date, text) {
@@ -707,7 +493,7 @@
                     </div>
                     <label class="day-complete-check" onclick="toggleWholeDay('${day.date}', event)">
                         <input type="checkbox" class="custom-checkbox" ${dayChecked ? 'checked' : ''}>
-                        <span>${dayChecked ? '已完成全天' : '标记全天'}</span>
+                        <span>${dayChecked ? '已完成' : '全天完成'}</span>
                     </label>
                 `;
 
@@ -745,7 +531,7 @@
                         ${hasNote ? '📝 查看/修改成果备注 (已记录)' : '📝 添加成果备注 / 学习心得'}
                     </button>
                     <div class="note-box ${hasNote ? 'open' : ''}" id="note-box-${day.date}">
-                        <textarea class="note-textarea" placeholder="记录今日打卡成果、错题复盘、单词记忆难点或心得..." oninput="handleNoteInput('${day.date}', this.value)">${escapeHtml(currentNote)}</textarea>
+                        <textarea class="note-textarea" placeholder="记录今日打卡成果、错题复盘、单词难点或心得..." oninput="handleNoteInput('${day.date}', this.value)">${escapeHtml(currentNote)}</textarea>
                         <div class="note-status" id="note-status-${day.date}"></div>
                     </div>
                 `;
@@ -762,11 +548,8 @@
         }
 
         function toggleTask(tid) {
-            if (checkedTasks.has(tid)) {
-                checkedTasks.delete(tid);
-            } else {
-                checkedTasks.add(tid);
-            }
+            if (checkedTasks.has(tid)) checkedTasks.delete(tid);
+            else checkedTasks.add(tid);
             saveStorage();
             render();
         }
@@ -786,11 +569,8 @@
             validTasks.forEach((t) => {
                 const originalIdx = day.tasks.indexOf(t);
                 const tid = getTaskId(day.date, t.category, originalIdx);
-                if (allChecked) {
-                    checkedTasks.delete(tid);
-                } else {
-                    checkedTasks.add(tid);
-                }
+                if (allChecked) checkedTasks.delete(tid);
+                else checkedTasks.add(tid);
             });
 
             saveStorage();
@@ -817,7 +597,6 @@
         function scrollToCurrentOrNearest() {
             const todayStr = new Date().toISOString().split('T')[0];
             let targetEl = document.getElementById(`day-${todayStr}`);
-            
             if (!targetEl) {
                 const firstUnfinished = PLAN_LIST.find(day => {
                     const validTasks = day.tasks.filter(t => t.content && t.content.trim() !== '');
@@ -826,11 +605,8 @@
                         return checkedTasks.has(getTaskId(day.date, t.category, originalIdx));
                     });
                 });
-                if (firstUnfinished) {
-                    targetEl = document.getElementById(`day-${firstUnfinished.date}`);
-                }
+                if (firstUnfinished) targetEl = document.getElementById(`day-${firstUnfinished.date}`);
             }
-
             if (targetEl) {
                 targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 targetEl.style.transition = 'box-shadow 0.3s';
@@ -893,12 +669,6 @@
             }
         }
 
-        // 页面初始化：读取之前生成的完整日程数据集
-        const ALL_DATA = window.PLAN_DATA || null;
-    </script>
-    <script src="https://cdn.jsdelivr.net/gh/p4zn462vhf-sudo/jlpt-tracker@main/data.js" onerror="loadFallbackData()"></script>
-    <script>
-        // 如果外部数据未加载成功，将使用原脚本内嵌的日程数据
         loadStorage();
         render();
     </script>
